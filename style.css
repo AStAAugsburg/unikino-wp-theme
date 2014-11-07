@@ -91,6 +91,10 @@ body {
 
 
 /* Typography */
+@font-face {
+    font-family: "Eras Bold ITC";
+    src: url(/wp-content/themes/sugar-and-spice/fonts/Eras_Bold_ITC.ttf) format("truetype");
+}
 h1, h2, h3, h4, h5, h6 {
     color: #404040;
     font-family: "Raleway", Arial, sans-serif;
@@ -253,7 +257,7 @@ li { margin-bottom: 0.75em; }
     max-width: 100%;
 }
 .site-title {
-    font-family: 'Niconne', cursive;
+    font-family: 'Eras Bold ITC';
     font-size: 40px;
     margin: 0;
     font-weight: 400;
