@@ -5,24 +5,7 @@
  * @package Sugar & Spice
  */
 
-/**
- * Set the content width based on the theme's design and stylesheet.
- */
-if ( ! isset( $content_width ) )
-	$content_width = 600; /* pixels */
 
-/** 
- * Adjust $content_width it depending on the temaplte used 
- */
-function sugarspice_content_width() {
-	global $content_width;
-    
-	if ( ! is_active_sidebar( 'sidebar-1' ) || is_page_template( 'full-width-page.php' ) )
-		$content_width = 940;
-}
-add_action( 'template_redirect', 'sugarspice_content_width' );    
-    
-    
 if ( ! function_exists( 'sugarspice_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.
@@ -33,14 +16,20 @@ if ( ! function_exists( 'sugarspice_setup' ) ) :
  */
 function sugarspice_setup() {
 
+	/**
+	 * Set the content width based on the theme's design and stylesheet.
+	 */
+	global $content_width;
+	if ( ! isset( $content_width ) )
+	$content_width = 600; /* pixels */
+
 	load_theme_textdomain( 'sugarspice', get_template_directory() . '/languages' );
 
 	add_theme_support( 'automatic-feed-links' );
 
 	add_theme_support( 'post-thumbnails' );
 	set_post_thumbnail_size( 210, 210, true );
-    add_image_size( 'mini-thumb', 60, 60, true );
-    
+
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu', 'sugarspice' ),
 		'footer' => __( 'Footer Menu', 'sugarspice' )
@@ -50,11 +39,22 @@ function sugarspice_setup() {
 		'default-color' => '',
 		'default-image' => get_template_directory_uri() . '/images/bg.png',
 	) ) );
-    
+
     add_theme_support( 'html5', array( 'comment-list', 'search-form', 'comment-form', ) );
 }
 endif; // sugarspice_setup
 add_action( 'after_setup_theme', 'sugarspice_setup' );
+
+/**
+ * Adjust $content_width it depending on the temaplte used
+ */
+function sugarspice_content_width() {
+	global $content_width;
+
+	if ( ! is_active_sidebar( 'sidebar-1' ) || is_page_template( 'full-width-page.php' ) )
+		$content_width = 940;
+}
+add_action( 'template_redirect', 'sugarspice_content_width' );
 
 /**
  * Register widgetized area and update sidebar with default widgets
@@ -69,7 +69,7 @@ function sugarspice_widgets_init() {
 		'before_title'  => '<h3 class="widget-title"><span>',
 		'after_title'   => '</span></h3>',
 	) );
-    
+
 	register_sidebar( array(
 		'name'          => __( 'Prefooter Area One', 'sugarspice' ),
 		'id'            => 'prefooter-1',
@@ -78,7 +78,7 @@ function sugarspice_widgets_init() {
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h3 class="widget-title"><span>',
 		'after_title'   => '</span></h3>',
-	) );    
+	) );
 
 	register_sidebar( array(
 		'name'          => __( 'Prefooter Area Two', 'sugarspice' ),
@@ -88,7 +88,7 @@ function sugarspice_widgets_init() {
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h3 class="widget-title"><span>',
 		'after_title'   => '</span></h3>',
-	) );    
+	) );
 
 	register_sidebar( array(
 		'name'          => __( 'Prefooter Area Three', 'sugarspice' ),
@@ -98,8 +98,8 @@ function sugarspice_widgets_init() {
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h3 class="widget-title"><span>',
 		'after_title'   => '</span></h3>',
-	) );      
-    
+	) );
+
     register_widget( 'sugarspice_contact_widget' );
     register_widget( 'sugarspice_about_widget' );
     register_widget( 'sugarspice_archives_widget' );
@@ -123,7 +123,7 @@ function sugarspice_prefooter_class() {
 
 	if ( is_active_sidebar( 'prefooter-3' ) )
 		$count++;
-		
+
 	$class = '';
 
     if ( $count == 2 ) {
@@ -131,7 +131,7 @@ function sugarspice_prefooter_class() {
     } else if ( $count == 3 ) {
         $class = 'one-third';
 	}
-    
+
 	if ( $class )
 		echo 'class="' . $class . '"';
 }
@@ -140,21 +140,21 @@ function sugarspice_prefooter_class() {
  * Enqueue scripts and styles
  */
 function sugarspice_scripts() {
-	
+
     wp_enqueue_script( 'sugarspice-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
 
-    wp_register_script('modernizr', get_template_directory_uri() . '/js/modernizr.min.js', array(), '2.6.2', true); 
+    wp_register_script('modernizr', get_template_directory_uri() . '/js/modernizr.min.js', array(), '2.6.2', true);
     wp_enqueue_script('modernizr');
-    
-    wp_register_script('tinynav', get_template_directory_uri() . '/js/tinynav.min.js', array(), '1.1', true); 
+
+    wp_register_script('tinynav', get_template_directory_uri() . '/js/tinynav.min.js', array(), '1.1', true);
     wp_enqueue_script('tinynav');
-        
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
 	wp_enqueue_script( 'sugarspice-flexslider', get_template_directory_uri() . '/js/jquery.flexslider-min.js', array( 'jquery' ), '2.2.0', true );
-    
+
 	if ( is_singular() && wp_attachment_is_image() ) {
 		wp_enqueue_script( 'sugarspice-keyboard-image-navigation', get_template_directory_uri() . '/js/keyboard-image-navigation.js', array( 'jquery' ), '20120202' );
 	}
@@ -172,7 +172,7 @@ function sugarspice_fonts_url() {
 	$ptserif = _x( 'on', 'PT Serif font: on or off', 'sugarspice' );
 
     $raleway = _x( 'on', 'Raleway font: on or off', 'sugarspice' );
-    
+
 	if ( 'off' !== $niconne || 'off' !== $ptserif || 'off' !== $raleway ) {
 		$font_families = array();
 
@@ -183,8 +183,8 @@ function sugarspice_fonts_url() {
 			$font_families[] = 'PT+Serif:400,700';
 
         if ( 'off' !== $raleway )
-			$font_families[] = 'Raleway:400,600';    
-            
+			$font_families[] = 'Raleway:400,600';
+
 		$query_args = array(
 			'family' => urlencode( implode( '|', $font_families ) ),
 			'subset' => urlencode( 'latin,latin-ext' ),
@@ -196,49 +196,49 @@ function sugarspice_fonts_url() {
 }
 
 function sugarspice_css() {
-    
+
 	wp_enqueue_style( 'sugarspice-fonts', sugarspice_fonts_url() );
 
 	wp_enqueue_style( 'sugarspice-style', get_stylesheet_uri() );
-	
-	if ( of_get_option( 'responsive' ) == 0 ) 
+
+	if ( of_get_option( 'responsive' ) == 0 )
 	wp_enqueue_style( 'sugarspice-responsive', get_template_directory_uri() . '/responsive.css' );
 
     wp_register_style('sugarspice-icofont', get_template_directory_uri() . '/fonts/icofont.css');
     wp_enqueue_style('sugarspice-icofont');
-    
+
 }
 add_action( 'wp_enqueue_scripts', 'sugarspice_css' );
 
 if (!function_exists('sugarspice_footer_js')) {
 	function sugarspice_footer_js() {
     ?>
-        <script>     
-       
-        jQuery(document).ready(function($) {   
+        <script>
+
+        jQuery(document).ready(function($) {
             $('.widget-title').each(function() {
                 var $this = $(this);
                 $this.html($this.html().replace(/(\S+)\s*$/, '<em>$1</em>'));
             });
             $('#reply-title').addClass('section-title').wrapInner('<span></span>');
-            
+
             if( $('.flexslider').length ) {
                 $('.flexslider').flexslider({ directionNav: false, pauseOnAction: false, });
                 $('.flex-control-nav').each(function(){
-                    var $this = $(this);                
+                    var $this = $(this);
                     var width = '-'+ ($this.width() / 2) +'px';
                     console.log($this.width());
                     $this.css('margin-left', width);
-                }); 
+                });
             }
-            
+
             $("#nav").tinyNav({header: '<?php _e( "Menu", "sugarspice" ); ?>'});
         });
         </script>
     <?php
 	}
 }
-add_action( 'wp_footer', 'sugarspice_footer_js', 20, 1 );    
+add_action( 'wp_footer', 'sugarspice_footer_js', 20, 1 );
 
 /**
  * Excerpt config. Can be overriden in child theme
@@ -247,14 +247,14 @@ if (!function_exists('sugarspice_excerpt_length')) {
     function sugarspice_excerpt_length( $length ) {
         return 40;
     }
-}    
+}
 add_filter( 'excerpt_length', 'sugarspice_excerpt_length', 999 );
 
 if (!function_exists('sugarspice_excerpt_more')) {
     function sugarspice_excerpt_more( $more ) {
         return '...';
     }
-}    
+}
 add_filter('excerpt_more', 'sugarspice_excerpt_more');
 
 

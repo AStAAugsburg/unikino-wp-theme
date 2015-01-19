@@ -7,7 +7,7 @@
 <?php
 
 // Display first post on Home Page in full, rest as excerpts
-if( is_home() && !is_paged() && ($posts[0] == $post) ) :
+if( !is_paged() && ($posts[0] == $post) ) :
 
 ?>
     <article id="post-<?php the_ID(); ?>" <?php post_class('firstfull'); ?>>
