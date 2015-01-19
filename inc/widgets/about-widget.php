@@ -31,7 +31,7 @@ class sugarspice_about_widget extends WP_Widget {
 		$image = $instance['image'];
 		$url = $instance['url'];
 		$read_more = $instance['read_more'];
-		
+
 		/* Before widget (defined by themes). */
 		echo $before_widget;
 
@@ -84,7 +84,7 @@ class sugarspice_about_widget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'text' ); ?>"><?php _e('About the author text','sugarspice') ?>:</label>
 			<textarea id="<?php echo $this->get_field_id( 'text' ); ?>" name="<?php echo $this->get_field_name( 'text' ); ?>" style="width:96%;" rows="6"><?php echo $instance['text']; ?></textarea>
 		</p>
-		
+
 		<!-- Image -->
 		<p>
 			<label for="<?php echo $this->get_field_id( 'image' ); ?>"><?php _e('Author image URL','sugarspice') ?>:</label>

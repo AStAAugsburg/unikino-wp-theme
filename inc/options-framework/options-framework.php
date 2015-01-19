@@ -160,9 +160,9 @@ function optionsframework_setdefaults() {
 	// If the options haven't been added to the database yet, they are added now
 	$values = of_get_default_values();
 
-	if ( isset( $values ) ) {
-		add_option( $option_name, $values ); // Add option with default settings
-	}
+	// if ( isset( $values ) ) {
+	// 	add_option( $option_name, $values ); // Add option with default settings
+	// }
 }
 
 /* Define menu options (still limited to appearance section)
@@ -258,10 +258,6 @@ function of_admin_head() {
 
 if ( !function_exists( 'optionsframework_page' ) ) :
 function optionsframework_page() { ?>
-    <div id="message" class="optionsframework-themepromo ">
-        <h2><?php _e('Ready for more? Upgrade to Pro!','sugarspice'); ?></h2>
-        <p><?php _e('Custom Home Page with slider, unlimited colors, additional theme options</b> and more!','sugarspice'); ?> <a class="upgrade-btn" target="_blank" href="http://wp.me/P1KhAq-1Rr?utm_source=sugar-spice&utm_medium=banner&utm_campaign=sspro"><?php _e('Upgrade now!','sugarspice'); ?></a></p>
-	</div>
 	<div id="optionsframework-wrap" class="wrap">
 	<?php screen_icon( 'themes' ); ?>
 	<h2 class="nav-tab-wrapper">

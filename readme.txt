@@ -1,8 +1,8 @@
 Theme Name: Sugar and Spice
 Theme URI: http://webtuts.pl/themes/sugar-spice
-Version: 1.3
+Version: 1.3.2
 Requires at least: WP 3.6
-Tested up to: WP 3.8
+Tested up to: WP 4.0
 
 Author: Aleksandra Łączek
 Author URI: http://webtuts.pl/
@@ -66,6 +66,18 @@ For questions, comments or bug reports, please go to WordPress forums (http://wo
 * 3 layout options
 
 == Changelog ==
+
+= 1.3.2 - 03.10.2014 =
+* removed saving theme options defaults to database
+* removed Pro upgrade notification
+* removed mini-thumb image size, as it's not actually used in the theme
+
+= 1.3.1 - 23.06.2014 =
+* fixed slideshow gallery media link
+* fixed "First full rest as excerpts" option
+* added "Full width, No title" page template
+* added WooCommerce compatibility file
+* added styling for website input in comment form
 
 = 1.3 - 18.03.2014 =
 * fixed bug when no post meta selected

@@ -355,7 +355,8 @@ if ( ! function_exists( 'sugarspice_post_gallery' ) ) :
         'columns'    => 3,
         'size'       => array(620,350),
         'include'    => '',
-        'exclude'    => ''
+        'exclude'    => '',
+        'link'       => '',
     ), $attr));
 
     $id = intval($id);
@@ -398,10 +399,21 @@ if ( ! function_exists( 'sugarspice_post_gallery' ) ) :
     $output .= "<ul class='slides'>";
     foreach ( $attachments as $id => $attachment ) {
     	$itemclass = ($i==0) ? 'item active' : 'item';
-    	$link = wp_get_attachment_link($id, $size, true, false);
+
+        if ( $link == 'none' ) {
+            $image = wp_get_attachment_image( $id, $size );        
+        } elseif ( $link == 'media' ) {
+            $image = sprintf(
+                '<a href="%1$s" rel="attachment">%2$s</a>',
+                esc_url( wp_get_attachment_url( $id ) ),
+                wp_get_attachment_image( $id, $size )
+            );
+        } else {
+            $image = wp_get_attachment_link( $id, $size, true, false );            
+        }
 
     	$output .= "<{$itemtag} class='{$itemclass}'>";
-    	$output .= "$link";
+    	$output .= "$image";
 
     	if ( $captiontag && trim($attachment->post_excerpt) ) {
         $output .= "

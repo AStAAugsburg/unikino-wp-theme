@@ -21,7 +21,7 @@ add_filter( 'wp_page_menu_args', 'sugarspice_page_menu_args' );
  */
 function sugarspice_body_classes( $classes ) {
 
-	if ( ! is_active_sidebar( 'sidebar-1' ) || is_page_template( 'full-width-page.php' ) )
+	if ( ! is_active_sidebar( 'sidebar-1' ) || is_page_template( 'full-width-page.php' ) || is_page_template( 'full-width-no-title-page.php' ) )
 		$classes[] = 'full-width';
         
 	// Adds a class of group-blog to blogs with more than 1 published author
